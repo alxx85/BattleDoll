@@ -37,5 +37,21 @@ public class EndGameWindow : Window
     {
         string showString = $"Current battle: {battleCount}\nEnemy killing: {killingEnemy}";
         _infoText.text = showString;
+        ChangeLeadre(battleCount, killingEnemy);
+    }
+
+    private void ChangeLeadre(int battleCount, int killing)
+    {
+        if (PlayerPrefs.HasKey("Battles"))
+        {
+            int leaderBattlesCount = PlayerPrefs.GetInt("Battles");
+            
+            if (leaderBattlesCount < battleCount)
+            {
+                PlayerPrefs.SetInt("Battles", battleCount);
+                PlayerPrefs.SetInt("Killing", killing);
+                PlayerPrefs.Save();
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class StartWindow : Window
 {
     [SerializeField] private Button _start;
     [SerializeField] private Button _settings;
+    [SerializeField] private TMP_Text _infoText;
 
     private EnemySpawner _spawner;
     private SettingsWindow _settingsMenu;
@@ -32,6 +34,7 @@ public class StartWindow : Window
         _player = player;
         _player.enabled = false;
         _settingsMenu = settingsMenu;
+        ViewLeadre();
     }
 
     private void OnStartButtonClick()
@@ -52,6 +55,21 @@ public class StartWindow : Window
     protected override void OnExitButtonClick()
     {
         Application.Quit();
+    }
+
+    private void ViewLeadre()
+    {
+        int leaderBattlesCount = 0;
+        int killings = 0;
+
+        if (PlayerPrefs.HasKey("Battles"))
+        {
+            leaderBattlesCount = PlayerPrefs.GetInt("Battles");
+            killings = PlayerPrefs.GetInt("Killing");
+
+            string showString = $"Current battle: {leaderBattlesCount}\nEnemy killing: {killings}";
+            _infoText.text = showString;
+        }
     }
 
     private void CloseWindow()
