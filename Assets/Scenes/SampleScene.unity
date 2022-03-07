@@ -11453,8 +11453,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e089d714533b24a9c25b5afd844309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exit: {fileID: 1663389964}
-  _next: {fileID: 1277254359}
+  _exitButton: {fileID: 1663389964}
+  _nextButton: {fileID: 1277254359}
   _infoText: {fileID: 1373754166}
 --- !u!82 &894477313
 AudioSource:
@@ -11874,8 +11874,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359fa44ca83151c41b22f423b605d957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exit: {fileID: 1921278800}
-  _replay: {fileID: 966322611}
+  _exitButton: {fileID: 1921278800}
+  _replayButton: {fileID: 966322611}
   _infoText: {fileID: 2043288996}
 --- !u!82 &912500406
 AudioSource:
@@ -14688,7 +14688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2622250e17f22324ab3e2ea661789b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exit: {fileID: 501199773}
+  _exitButton: {fileID: 501199773}
   _sensitivitySlider: {fileID: 1473457673}
   _musicSlider: {fileID: 865816267}
   _effectSlider: {fileID: 1124384906}
@@ -17990,9 +17990,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654a7a0fe1056a44682d69916f8d7de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exit: {fileID: 1553387668}
-  _start: {fileID: 964219086}
-  _settings: {fileID: 1893047453}
+  _exitButton: {fileID: 1553387668}
+  _startButton: {fileID: 964219086}
+  _settingsButton: {fileID: 1893047453}
   _infoText: {fileID: 1374324890}
 --- !u!1 &1610860456
 GameObject:
