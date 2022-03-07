@@ -13,9 +13,9 @@ public class EnemyMover : MonoBehaviour
     private EnemyTargetAttack _enemyAttack;
     private Vector3 _direction;
 
-    private const float _forward = 1f;
+    private const float Forward = 1f;
 
-    public event UnityAction<float, float> ChangeMoveDirection;
+    public event UnityAction<float, float> ChangedMoveDirection;
 
     private void Start()
     {
@@ -37,7 +37,7 @@ public class EnemyMover : MonoBehaviour
     {
         if (_enemyAttack.Target != null)
         {
-            EnemyRotation();
+            ChangeEnemyRotation();
 
             if (Vector3.Distance(transform.position, _enemyAttack.Target.transform.position) > _enemyAttack.AttackDistance)
             {
@@ -48,18 +48,18 @@ public class EnemyMover : MonoBehaviour
                     if (_direction != transform.forward)
                     {
                         _direction = transform.forward;
-                        ChangeMoveDirection?.Invoke(0, _forward);
+                        ChangedMoveDirection?.Invoke(0, Forward);
                     }
                 }
             }
         }
         else
         {
-            ChangeMoveDirection?.Invoke(0, 0);
+            ChangedMoveDirection?.Invoke(0, 0);
         }
     }
 
-    private void EnemyRotation()
+    private void ChangeEnemyRotation()
     {
         transform.LookAt(_enemyAttack.Target.transform);
     }

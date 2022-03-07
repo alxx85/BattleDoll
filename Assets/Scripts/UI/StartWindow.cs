@@ -6,35 +6,38 @@ using UnityEngine.UI;
 
 public class StartWindow : Window
 {
-    [SerializeField] private Button _start;
-    [SerializeField] private Button _settings;
+    [SerializeField] private Button _startButton;
+    [SerializeField] private Button _settingsButton;
     [SerializeField] private TMP_Text _infoText;
 
     private EnemySpawner _spawner;
-    private SettingsWindow _settingsMenu;
+    private SettingsWindow _settingsWindow;
+
+    private const string Battles = "Battles";
+    private const string Killing = "Killing";
 
     protected override void OnEnable()
     {
         base.OnEnable();
-        _start.onClick.AddListener(OnStartButtonClick);
-        _settings.onClick.AddListener(OnSettingsButtonClick);
+        _startButton.onClick.AddListener(OnStartButtonClick);
+        _settingsButton.onClick.AddListener(OnSettingsButtonClick);
 
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        _start.onClick.RemoveListener(OnStartButtonClick);
-        _settings.onClick.RemoveListener(OnSettingsButtonClick);
+        _startButton.onClick.RemoveListener(OnStartButtonClick);
+        _settingsButton.onClick.RemoveListener(OnSettingsButtonClick);
     }
 
     public void Init(EnemySpawner spawner, PlayerMover player, SettingsWindow settingsMenu)
     {
         _spawner = spawner;
         _player = player;
+        _settingsWindow = settingsMenu;
         _player.enabled = false;
-        _settingsMenu = settingsMenu;
-        ViewLeadre();
+        ShowLeadre();
     }
 
     private void OnStartButtonClick()
@@ -47,8 +50,8 @@ public class StartWindow : Window
 
     private void OnSettingsButtonClick()
     {
-        _settingsMenu.Init(_player, this);
-        _settingsMenu.gameObject.SetActive(true);
+        _settingsWindow.Init(_player, this);
+        _settingsWindow.gameObject.SetActive(true);
         CloseWindow();
     }
 
@@ -57,19 +60,18 @@ public class StartWindow : Window
         Application.Quit();
     }
 
-    private void ViewLeadre()
+    private void ShowLeadre()
     {
         int leaderBattlesCount = 0;
-        int killings = 0;
+        int killEnemiesCount = 0;
 
-        if (PlayerPrefs.HasKey("Battles"))
+        if (PlayerPrefs.HasKey(Battles))
         {
-            leaderBattlesCount = PlayerPrefs.GetInt("Battles");
-            killings = PlayerPrefs.GetInt("Killing");
-
-            string showString = $"Current battle: {leaderBattlesCount}\nEnemy killing: {killings}";
-            _infoText.text = showString;
+            leaderBattlesCount = PlayerPrefs.GetInt(Battles);
+            killEnemiesCount = PlayerPrefs.GetInt(Killing);
         }
+        string showString = $"Current battle: {leaderBattlesCount}\nEnemy killing: {killEnemiesCount}";
+        _infoText.text = showString;
     }
 
     private void CloseWindow()

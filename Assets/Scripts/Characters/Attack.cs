@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterProperties))]
 public class Attack : MonoBehaviour
 {
     [SerializeField] protected float _damage;
@@ -34,7 +35,7 @@ public class Attack : MonoBehaviour
         _currentDamage = _damage;
     }
 
-    public void CrashEffect()
+    public void AddingCrashEffect()
     {
         Instantiate(_attackParticte, _attackPoint.position, Quaternion.identity);
     }
@@ -45,8 +46,9 @@ public class Attack : MonoBehaviour
         _currentDamage = _damage + _damage * _scale;
     }
 
-    protected IEnumerator AttackArea()
+    protected IEnumerator DealAreaDamage()
     {
+        CharacterProperties selfTarget = GetComponent<CharacterProperties>();
         yield return _delayAttack;
 
         Collider[] targets = Physics.OverlapSphere(_attackPoint.position, _attackRange + _scale);
@@ -55,7 +57,7 @@ public class Attack : MonoBehaviour
         {
             if (targets[i].TryGetComponent(out CharacterProperties enemy))
             {
-                if (enemy != GetComponent<CharacterProperties>())
+                if (enemy != selfTarget)
                 {
                     enemy.TakeDamage(GetComponent<CharacterProperties>(), _currentDamage);
                 }

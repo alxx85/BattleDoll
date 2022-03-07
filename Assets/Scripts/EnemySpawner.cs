@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
     
     private List<CharacterProperties> _spanedEnemys = new List<CharacterProperties>();
 
-    public event UnityAction EndBattle;
+    public event UnityAction EndedBattle;
 
     public void StartBattle()
     {
@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
         if (_spanedEnemys.Count <= 0)
         {
             _startEnemyCount += _countAddEnemyInWawe;
-            EndBattle?.Invoke();
+            EndedBattle?.Invoke();
         }
     }
 

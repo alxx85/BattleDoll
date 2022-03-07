@@ -9,7 +9,11 @@ public class PlayerAnimator : MonoBehaviour
     private Animator _animator;
     private PlayerMover _playerMover;
 
-    void Awake()
+    private const string Attack = "Attack";
+    private const string DirectionX = "DirectionX";
+    private const string DirectionZ = "DirectionZ";
+
+    private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _playerMover = GetComponent<PlayerMover>();
@@ -17,25 +21,24 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerMover.ChangeMoveDirection += OnChangeMoveDirection;
-        _playerMover.PlayerAttacks += OnPlayerAttacks;
+        _playerMover.ChangedMoveDirection += OnChangedMoveDirection;
+        _playerMover.PlayerAttacked += OnPlayerAttacked;
     }
 
     private void OnDisable()
     {
-        _playerMover.ChangeMoveDirection -= OnChangeMoveDirection;
-        _playerMover.PlayerAttacks -= OnPlayerAttacks;
+        _playerMover.ChangedMoveDirection -= OnChangedMoveDirection;
+        _playerMover.PlayerAttacked -= OnPlayerAttacked;
     }
 
-    private void OnPlayerAttacks()
+    private void OnPlayerAttacked()
     {
-        _animator.SetTrigger("Attack");
+        _animator.SetTrigger(Attack);
     }
 
-    private void OnChangeMoveDirection(float directionX, float directionZ)
+    private void OnChangedMoveDirection(float directionX, float directionZ)
     {
-        _animator.SetFloat("DirectionX", directionX);
-        _animator.SetFloat("DirectionZ", directionZ);
+        _animator.SetFloat(DirectionX, directionX);
+        _animator.SetFloat(DirectionZ, directionZ);
     }
-
 }

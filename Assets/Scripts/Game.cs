@@ -19,17 +19,17 @@ public class Game : MonoBehaviour
     private void OnEnable()
     {
         _player.Dying += OnPlayerDying;
-        _spawner.EndBattle += OnEndBattle;
+        _spawner.EndedBattle += OnEndedBattle;
     }
 
     private void OnDisable()
     {
-        _spawner.EndBattle -= OnEndBattle;
+        _spawner.EndedBattle -= OnEndedBattle;
         if (_player != null)
             _player.Dying -= OnPlayerDying;
     }
 
-    private void OnEndBattle()
+    private void OnEndedBattle()
     {
         BattleCount++;
         _infoViewer.ShowEndBattleMenu(_spawner, BattleCount, _player.Killing);

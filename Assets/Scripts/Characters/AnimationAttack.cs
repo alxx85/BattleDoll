@@ -15,11 +15,11 @@ public class AnimationAttack : MonoBehaviour
             _enemy = GetComponentInParent<EnemyTargetAttack>();
     }
 
-    public void Crash()
+    public void OnCrash()
     {
         if (_player == null)
-            _enemy.CrashEffect();
+            _enemy.AddingCrashEffect();
         else
-            _player.CrashEffect();
+            _player.AddingCrashEffect();
     }
 }

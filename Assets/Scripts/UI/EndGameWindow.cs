@@ -7,30 +7,23 @@ using UnityEngine.UI;
 
 public class EndGameWindow : Window
 {
-    [SerializeField] private Button _replay;
+    [SerializeField] private Button _replayButton;
     [SerializeField] private TMP_Text _infoText;
+
+    private const string Battles = "Battles";
+    private const string Killing = "Killing";
 
     protected override void OnEnable()
     {
         base.OnEnable();
-        _replay.onClick.AddListener(OnNextButtonClick);
+        _replayButton.onClick.AddListener(OnNextButtonClick);
 
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        _replay.onClick.RemoveListener(OnNextButtonClick);
-    }
-
-    private void OnNextButtonClick()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    protected override void OnExitButtonClick()
-    {
-        Application.Quit();
+        _replayButton.onClick.RemoveListener(OnNextButtonClick);
     }
 
     public void ShowInfoText(int battleCount, int killingEnemy)
@@ -40,18 +33,33 @@ public class EndGameWindow : Window
         ChangeLeadre(battleCount, killingEnemy);
     }
 
+    protected override void OnExitButtonClick()
+    {
+        Application.Quit();
+    }
+
+    private void OnNextButtonClick()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void ChangeLeadre(int battleCount, int killing)
     {
-        if (PlayerPrefs.HasKey("Battles"))
+        if (PlayerPrefs.HasKey(Battles))
         {
-            int leaderBattlesCount = PlayerPrefs.GetInt("Battles");
+            int leaderBattlesCount = PlayerPrefs.GetInt(Battles);
             
             if (leaderBattlesCount < battleCount)
             {
-                PlayerPrefs.SetInt("Battles", battleCount);
-                PlayerPrefs.SetInt("Killing", killing);
-                PlayerPrefs.Save();
+                PlayerPrefs.SetInt(Battles, battleCount);
+                PlayerPrefs.SetInt(Killing, killing);
             }
         }
+        else
+        {
+            PlayerPrefs.SetInt(Battles, battleCount);
+            PlayerPrefs.SetInt(Killing, killing);
+        }
+        PlayerPrefs.Save();
     }
 }

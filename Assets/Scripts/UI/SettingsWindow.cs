@@ -12,7 +12,7 @@ public class SettingsWindow : Window
     [SerializeField] private Toggle _muteToggle;
     [SerializeField] private AudioMixer audioMixer;
 
-    private Window _startMenu;
+    private Window _startWindow;
 
     private const string MusicVolume = "Music";
     private const string EffectsVolume = "SoundEffects";
@@ -20,23 +20,23 @@ public class SettingsWindow : Window
     protected override void OnEnable()
     {
         base.OnEnable();
-        _sensitivitySlider.onValueChanged.AddListener(OnChangeSensitivity);
+        _sensitivitySlider.onValueChanged.AddListener(OnChangedSensitivity);
         _musicSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
         _effectSlider.onValueChanged.AddListener(OnEffectsVolumeChanged);
-        _muteToggle.onValueChanged.AddListener(OnChangeMute);
+        _muteToggle.onValueChanged.AddListener(OnChangedMute);
 
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        _sensitivitySlider.onValueChanged.RemoveListener(OnChangeSensitivity);
+        _sensitivitySlider.onValueChanged.RemoveListener(OnChangedSensitivity);
         _musicSlider.onValueChanged.RemoveListener(OnMusicVolumeChanged);
         _effectSlider.onValueChanged.RemoveListener(OnEffectsVolumeChanged);
-        _muteToggle.onValueChanged.RemoveListener(OnChangeMute);
+        _muteToggle.onValueChanged.RemoveListener(OnChangedMute);
     }
 
-    public void Init(PlayerMover player, Window startMenu)
+    public void Init(PlayerMover player, Window startWindow)
     {
         _player = player;
         _sensitivitySlider.value = _player.RotateSpeed;
@@ -44,7 +44,7 @@ public class SettingsWindow : Window
         audioMixer.GetFloat(EffectsVolume, out float effectsVolume);
         _musicSlider.value = musicVolume;
         _effectSlider.value = effectsVolume;
-        _startMenu = startMenu;
+        _startWindow = startWindow;
     }
 
     private void OnMusicVolumeChanged(float value)
@@ -57,22 +57,23 @@ public class SettingsWindow : Window
         audioMixer.SetFloat(EffectsVolume, value);
     }
 
-    private void OnChangeSensitivity(float value)
+    private void OnChangedSensitivity(float value)
     {
         _player.ChangedRotateSpeed(value);
     }
 
-    private void OnChangeMute(bool value)
+    private void OnChangedMute(bool value)
     {
-        if (value)
-            AudioListener.volume = 1;
-        else
-            AudioListener.volume = 0;
+        AudioListener.volume = value? 1: 0;
+        //if (value)
+        //    AudioListener.volume = 1;
+        //else
+        //    AudioListener.volume = 0;
     }
 
     protected override void OnExitButtonClick()
     {
-        _startMenu.gameObject.SetActive(true);
+        _startWindow.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
 }

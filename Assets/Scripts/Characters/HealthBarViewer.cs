@@ -7,6 +7,7 @@ public class HealthBarViewer : MonoBehaviour
 {
     [SerializeField] private Texture2D _healthBarTexture;
 
+    private CharacterProperties _properties;
     private int _healthBarWidth = 20;
     private int _healthBarHeight = 7;
 
@@ -15,12 +16,13 @@ public class HealthBarViewer : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<CharacterProperties>().ChangeHealth += OnChangeHealth;
+        _properties = GetComponent<CharacterProperties>();
+        _properties.ChangedHealth += OnChangedHealth;
     }
 
     private void OnDisable()
     {
-        GetComponent<CharacterProperties>().ChangeHealth -= OnChangeHealth;
+        _properties.ChangedHealth -= OnChangedHealth;
     }
 
     private void OnGUI()
@@ -34,7 +36,7 @@ public class HealthBarViewer : MonoBehaviour
                 currentHealth, _healthBarHeight), _healthBarTexture);
     }
 
-    private void OnChangeHealth(float maxHealth, float health)
+    private void OnChangedHealth(float maxHealth, float health)
     {
         _maxHealth = maxHealth;
         _health = health;

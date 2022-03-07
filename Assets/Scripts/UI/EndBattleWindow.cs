@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class EndBattleWindow : Window
 {
-    [SerializeField] private Button _next;
+    [SerializeField] private Button _nextButton;
     [SerializeField] private TMP_Text _infoText;
 
     private EnemySpawner _spawner;
@@ -15,14 +15,14 @@ public class EndBattleWindow : Window
     protected override void OnEnable()
     {
         base.OnEnable();
-        _next.onClick.AddListener(OnNextButtonClick);
+        _nextButton.onClick.AddListener(OnNextButtonClick);
 
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        _next.onClick.RemoveListener(OnNextButtonClick);
+        _nextButton.onClick.RemoveListener(OnNextButtonClick);
     }
 
     public void Init(EnemySpawner spawner, CharacterProperties player)

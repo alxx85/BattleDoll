@@ -22,12 +22,12 @@ public class ScreenInfoViewer : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.ChangeHealth += OnChangeHealth;
+        _player.ChangedHealth += OnChangedHealth;
     }
 
     private void OnDisable()
     {
-        _player.ChangeHealth -= OnChangeHealth;
+        _player.ChangedHealth -= OnChangedHealth;
     }
 
     public void PlayingBattleSong()
@@ -55,7 +55,7 @@ public class ScreenInfoViewer : MonoBehaviour
         _endBattle.gameObject.SetActive(true);
     }
 
-    private void OnChangeHealth(float maxHealth, float currentHealth)
+    private void OnChangedHealth(float maxHealth, float currentHealth)
     {
         _healthBar.maxValue = maxHealth;
         _healthBar.value = currentHealth;

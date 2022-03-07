@@ -3,19 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterProperties))]
+[RequireComponent(typeof(PlayerMover))]
 public class PlayerAttack : Attack
 {
+    private PlayerMover _mover;
+
     protected override void OnEnable()
     {
         base.OnEnable();
-        GetComponent<PlayerMover>().PlayerAttacks += AttackEnemys;
+        _mover = GetComponent<PlayerMover>();
+        _mover.PlayerAttacked += AttackEnemys;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        GetComponent<PlayerMover>().PlayerAttacks -= AttackEnemys;
+        _mover.PlayerAttacked -= AttackEnemys;
     }
 
     private void Update()
@@ -31,7 +34,7 @@ public class PlayerAttack : Attack
     {
         if (_attack == null)
         {
-            _attack = StartCoroutine(AttackArea());
+            _attack = StartCoroutine(DealAreaDamage());
             _isAttacking = true;
         }
     }

@@ -15,7 +15,7 @@ public class CharacterProperties : MonoBehaviour
 
     public int Killing => _killingEnemy;
 
-    public event UnityAction<float, float> ChangeHealth;
+    public event UnityAction<float, float> ChangedHealth;
     public event UnityAction<float> ScaleChanged;
     public event UnityAction<CharacterProperties> Dying;
 
@@ -23,7 +23,7 @@ public class CharacterProperties : MonoBehaviour
     {
         _startScale = transform.localScale;
         _health = _maxHealth;
-        ChangeHealth?.Invoke(_maxHealth, _health);
+        ChangedHealth?.Invoke(_maxHealth, _health);
     }
 
     public void TakeDamage(CharacterProperties aggressor, float damage)
@@ -40,7 +40,7 @@ public class CharacterProperties : MonoBehaviour
             Dying?.Invoke(this);
             Destroy(gameObject);
         }
-        ChangeHealth?.Invoke(_maxHealth, _health);
+        ChangedHealth?.Invoke(_maxHealth, _health);
     }
 
     public void ChangeScale(float addScale)

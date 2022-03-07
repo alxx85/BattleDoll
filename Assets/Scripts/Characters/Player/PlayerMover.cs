@@ -10,6 +10,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _rotateSpeed;
 
     private PlayerAttack _playerAttack;
+
     private float _mouseRotate;
     private float _currentSpeed;
     private Vector3 _moveDirection;
@@ -17,8 +18,8 @@ public class PlayerMover : MonoBehaviour
 
     public float RotateSpeed => _rotateSpeed;
 
-    public event UnityAction<float, float> ChangeMoveDirection;
-    public event UnityAction PlayerAttacks;
+    public event UnityAction<float, float> ChangedMoveDirection;
+    public event UnityAction PlayerAttacked;
 
     private void Start()
     {
@@ -33,7 +34,7 @@ public class PlayerMover : MonoBehaviour
 
     private void OnDisable()
     {
-        ChangeMoveDirection?.Invoke(0, 0);
+        ChangedMoveDirection?.Invoke(0, 0);
         GetComponent<CharacterProperties>().ScaleChanged -= OnScaleChanged;
     }
 
@@ -41,7 +42,7 @@ public class PlayerMover : MonoBehaviour
     {
         if (_playerAttack.IsAttacking == false)
         {
-            PlayerInput();
+            PlayerInputs();
 
             transform.Rotate(0, _mouseRotate, 0);
             transform.Translate(_moveDirection);
@@ -53,7 +54,7 @@ public class PlayerMover : MonoBehaviour
         _rotateSpeed = value;
     }
 
-    private void PlayerInput()
+    private void PlayerInputs()
     {
         _moveDirection = Vector3.zero;
         _moveDirection += Vector3.right * Input.GetAxis("Horizontal");
@@ -61,7 +62,7 @@ public class PlayerMover : MonoBehaviour
         
         if (_direction != _moveDirection)
         {
-            ChangeMoveDirection?.Invoke(_moveDirection.x, _moveDirection.z);
+            ChangedMoveDirection?.Invoke(_moveDirection.x, _moveDirection.z);
             _direction = _moveDirection;
         }
         
@@ -69,7 +70,7 @@ public class PlayerMover : MonoBehaviour
         _mouseRotate = Input.GetAxis("Mouse X") * _rotateSpeed;
 
         if (Input.GetMouseButtonDown(0))
-            PlayerAttacks?.Invoke();
+            PlayerAttacked?.Invoke();
     }
 
     private void OnScaleChanged(float newScale)

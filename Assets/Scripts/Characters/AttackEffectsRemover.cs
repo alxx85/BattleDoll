@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ParticleSystem))]
-public class AttackSplitRemover : MonoBehaviour
+public class AttackEffectsRemover : MonoBehaviour
 {
     private float _delay;
 
-    void Start()
+    private void Start()
     {
         _delay = GetComponent<ParticleSystem>().main.duration;
         Destroy(this.gameObject, _delay);

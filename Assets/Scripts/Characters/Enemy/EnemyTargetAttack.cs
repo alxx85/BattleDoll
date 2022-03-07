@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(CharacterProperties))]
 public class EnemyTargetAttack : Attack
 {
     [SerializeField] private float _searchDistance;
@@ -19,7 +18,7 @@ public class EnemyTargetAttack : Attack
     public CharacterProperties Target => _target;
     public float AttackDistance => _attackPoint.localPosition.z;
 
-    public event UnityAction EnemyAttacks;
+    public event UnityAction EnemyAttacked;
 
     protected override void Start()
     {
@@ -31,7 +30,7 @@ public class EnemyTargetAttack : Attack
     private void Update()
     {
         if (_target == null)
-            _target = IsAcquireTarget();
+            _target = AcquireTarget();
         else
         {
             if (Vector3.Distance(transform.position, _target.transform.position) <= _attackPoint.localPosition.z + _scale)
@@ -57,37 +56,37 @@ public class EnemyTargetAttack : Attack
 
         if (_attack == null)
         {
-            _attack = StartCoroutine(AttackArea());
-            EnemyAttacks?.Invoke();
+            _attack = StartCoroutine(DealAreaDamage());
+            EnemyAttacked?.Invoke();
         }
         StopCoroutine(_waitAttackin);
     }
 
-    private CharacterProperties IsAcquireTarget()
+    private CharacterProperties AcquireTarget()
     {
-        float searchDistance = 1f;
+        CharacterProperties selfTarget = transform.GetComponent<CharacterProperties>();
+        float currentSearchDistance = 1f;
+
         do
         {
-            Collider[] targets = Physics.OverlapSphere(transform.position, searchDistance + _scale);
+            Collider[] targets = Physics.OverlapSphere(transform.position, currentSearchDistance + _scale);
 
             for (int i = 0; i < targets.Length; i++)
             {
                 if (targets[i].TryGetComponent(out CharacterProperties enemy))
-                    if (enemy != transform.GetComponent<CharacterProperties>())
+                    if (enemy != selfTarget)
                         return enemy;
             }
-            searchDistance++;
-            Mathf.Clamp(searchDistance, MinSearchDistance, _searchDistance);
+            currentSearchDistance++;
+            Mathf.Clamp(currentSearchDistance, MinSearchDistance, _searchDistance);
 
-        } while (searchDistance < _searchDistance);
+        } while (currentSearchDistance < _searchDistance);
         return null;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Vector3 position = transform.position;
-
         Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
     }
 }
