@@ -13,7 +13,7 @@ public class EnemyAnimator : MonoBehaviour
     private const string DirectionX = "DirectionX";
     private const string DirectionZ = "DirectionZ";
 
-    void Awake()
+    private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _enemyMover = GetComponent<EnemyMover>();

@@ -65,10 +65,6 @@ public class SettingsWindow : Window
     private void OnChangedMute(bool value)
     {
         AudioListener.volume = value? 1: 0;
-        //if (value)
-        //    AudioListener.volume = 1;
-        //else
-        //    AudioListener.volume = 0;
     }
 
     protected override void OnExitButtonClick()
