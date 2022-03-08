@@ -10,7 +10,6 @@ public class StartWindow : Window
     [SerializeField] private Button _settingsButton;
     [SerializeField] private TMP_Text _infoText;
 
-    private EnemySpawner _spawner;
     private SettingsWindow _settingsWindow;
 
     private const string Battles = "Battles";
@@ -31,9 +30,8 @@ public class StartWindow : Window
         _settingsButton.onClick.RemoveListener(OnSettingsButtonClick);
     }
 
-    public void Init(EnemySpawner spawner, PlayerMover player, SettingsWindow settingsMenu)
+    public void Init(PlayerMover player, SettingsWindow settingsMenu)
     {
-        _spawner = spawner;
         _player = player;
         _settingsWindow = settingsMenu;
         _player.enabled = false;
@@ -43,7 +41,7 @@ public class StartWindow : Window
     private void OnStartButtonClick()
     {
         _player.enabled = true;
-        _spawner.StartBattle();
+        Game.Instance.StartBattle();
         GetComponentInParent<ScreenInfoViewer>().PlayingBattleSong();
         CloseWindow();
     }

@@ -8,12 +8,24 @@ public class Game : MonoBehaviour
     [SerializeField] private EnemySpawner _spawner;
     [SerializeField] private ScreenInfoViewer _infoViewer;
 
+    private Camera _camera;
+
+    public static Game Instance = null;
+
     public int BattleCount { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance == this)
+            Destroy(gameObject);
+
+        _camera = Camera.main;
+        ChangeCameraParent(_player.transform);
+
         BattleCount = 0;
-        _infoViewer.ShowStartMenu(_spawner);
+        _infoViewer.ShowStartMenu();
     }
 
     private void OnEnable()
@@ -29,16 +41,28 @@ public class Game : MonoBehaviour
             _player.Dying -= OnPlayerDying;
     }
 
+    public void StartBattle()
+    {
+        _spawner.SpawnEnemy();
+    }
+
     private void OnEndedBattle()
     {
         BattleCount++;
-        _infoViewer.ShowEndBattleMenu(_spawner, BattleCount, _player.Killing);
+        _player.ResetProperties();
+        _infoViewer.ShowEndBattleMenu(BattleCount, _player.Killing);
     }
 
     private void OnPlayerDying(CharacterProperties player)
     {
         _player.Dying -= OnPlayerDying;
+        ChangeCameraParent(null);
         _infoViewer.ShowEndGameMenu(BattleCount, _player.Killing);
         _player = null;
+    }
+
+    private void ChangeCameraParent(Transform parent)
+    {
+        _camera.transform.SetParent(parent);
     }
 }

@@ -15,12 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     public event UnityAction EndedBattle;
 
-    public void StartBattle()
-    {
-        SpawnEnemy();
-    }
-
-    private void SpawnEnemy()
+    public void SpawnEnemy()
     {
         for (int i = 0; i < _startEnemyCount; i++)
         {

@@ -10,7 +10,7 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private float _speed;
 
     private float _currentSpeed;
-    private EnemyTargetAttack _enemyAttack;
+    private EnemyTargetAttack _attack;
     private CharacterProperties _properties;
     private Vector3 _direction;
 
@@ -20,7 +20,7 @@ public class EnemyMover : MonoBehaviour
 
     private void Awake()
     {
-        _enemyAttack = GetComponent<EnemyTargetAttack>();
+        _attack = GetComponent<EnemyTargetAttack>();
         _properties = GetComponent<CharacterProperties>();
         _currentSpeed = _speed;
     }
@@ -37,13 +37,13 @@ public class EnemyMover : MonoBehaviour
 
     private void Update()
     {
-        if (_enemyAttack.Target != null)
+        if (_attack.Target != null)
         {
-            ChangeEnemyRotation();
+            ChangeRotation();
 
-            if (Vector3.Distance(transform.position, _enemyAttack.Target.transform.position) > _enemyAttack.AttackDistance)
+            if (Vector3.Distance(transform.position, _attack.Target.transform.position) > _attack.AttackDistance)
             {
-                if (_enemyAttack.IsAttacking == false)
+                if (_attack.IsAttacking == false)
                 {
                     transform.Translate(Vector3.forward * _currentSpeed * Time.deltaTime);
                     
@@ -61,9 +61,9 @@ public class EnemyMover : MonoBehaviour
         }
     }
 
-    private void ChangeEnemyRotation()
+    private void ChangeRotation()
     {
-        transform.LookAt(_enemyAttack.Target.transform);
+        transform.LookAt(_attack.Target.transform);
     }
 
     private void OnScaleChanged(float newScale)

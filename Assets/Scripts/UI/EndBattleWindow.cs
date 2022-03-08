@@ -10,8 +10,6 @@ public class EndBattleWindow : Window
     [SerializeField] private Button _nextButton;
     [SerializeField] private TMP_Text _infoText;
 
-    private EnemySpawner _spawner;
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -25,17 +23,15 @@ public class EndBattleWindow : Window
         _nextButton.onClick.RemoveListener(OnNextButtonClick);
     }
 
-    public void Init(EnemySpawner spawner, CharacterProperties player)
+    public void Init(CharacterProperties player)
     {
-        _spawner = spawner;
-        player.NextBattle();
         _player = player.GetComponent<PlayerMover>();
         _player.enabled = false;
     }
 
     private void OnNextButtonClick()
     {
-        _spawner.StartBattle();
+        Game.Instance.StartBattle();
         gameObject.SetActive(false);
         _player.enabled = true;
     }

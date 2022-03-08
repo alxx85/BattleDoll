@@ -51,7 +51,7 @@ public class CharacterProperties : MonoBehaviour
         _killingEnemy++;
     }
 
-    public void NextBattle()
+    public void ResetProperties()
     {
         transform.localScale = _startScale;
         transform.position = Vector3.zero;

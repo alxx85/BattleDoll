@@ -42,15 +42,15 @@ public class ScreenInfoViewer : MonoBehaviour
         _endGame.gameObject.SetActive(true);
     }
 
-    public void ShowStartMenu(EnemySpawner spawner)
+    public void ShowStartMenu()
     {
-        _startMenu.Init(spawner, _player.GetComponent<PlayerMover>(), _settingsMenu);
+        _startMenu.Init(_player.GetComponent<PlayerMover>(), _settingsMenu);
         _startMenu.gameObject.SetActive(true);
     }
     
-    public void ShowEndBattleMenu(EnemySpawner spawner, int BattleCount, int enemyKilling)
+    public void ShowEndBattleMenu(int BattleCount, int enemyKilling)
     {
-        _endBattle.Init(spawner, _player);
+        _endBattle.Init(_player);
         _endBattle.ShowInfoText(BattleCount, enemyKilling);
         _endBattle.gameObject.SetActive(true);
     }
