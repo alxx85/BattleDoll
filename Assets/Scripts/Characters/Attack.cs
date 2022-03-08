@@ -16,17 +16,23 @@ public class Attack : MonoBehaviour
     protected Coroutine _attack;
     protected WaitForSeconds _delayAttack;
     protected bool _isAttacking = false;
+    protected CharacterProperties _properties;
 
     public bool IsAttacking => _isAttacking;
 
+    private void Awake()
+    {
+        _properties = GetComponent<CharacterProperties>();
+    }
+
     protected virtual void OnEnable()
     {
-        GetComponent<CharacterProperties>().ScaleChanged += OnScaleChanged;
+        _properties.ScaleChanged += OnScaleChanged;
     }
 
     protected virtual void OnDisable()
     {
-        GetComponent<CharacterProperties>().ScaleChanged -= OnScaleChanged;
+        _properties.ScaleChanged -= OnScaleChanged;
     }
 
     protected virtual void Start()

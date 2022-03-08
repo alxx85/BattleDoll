@@ -6,7 +6,7 @@ public class AnimationAttack : MonoBehaviour
 {
     private PlayerAttack _player;
     private EnemyTargetAttack _enemy;
-    private bool IsAquireCharacter = false;
+    private bool _isAquireCharacter = false;
 
     private void Awake()
     {
@@ -17,17 +17,17 @@ public class AnimationAttack : MonoBehaviour
             _enemy = GetComponentInParent<EnemyTargetAttack>();
 
             if (_enemy != null)
-                IsAquireCharacter = true;
+                _isAquireCharacter = true;
         }
         else
         {
-            IsAquireCharacter = true;
+            _isAquireCharacter = true;
         }
     }
 
     public void OnCrash()
     {
-        if (IsAquireCharacter)
+        if (_isAquireCharacter)
         {
             if (_player == null)
                 _enemy.AddingCrashEffect();

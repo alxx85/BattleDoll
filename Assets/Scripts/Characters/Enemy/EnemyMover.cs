@@ -11,26 +11,28 @@ public class EnemyMover : MonoBehaviour
 
     private float _currentSpeed;
     private EnemyTargetAttack _enemyAttack;
+    private CharacterProperties _properties;
     private Vector3 _direction;
 
     private const float Forward = 1f;
 
     public event UnityAction<float, float> ChangedMoveDirection;
 
-    private void Start()
+    private void Awake()
     {
         _enemyAttack = GetComponent<EnemyTargetAttack>();
+        _properties = GetComponent<CharacterProperties>();
         _currentSpeed = _speed;
     }
 
     private void OnEnable()
     {
-        GetComponent<CharacterProperties>().ScaleChanged += OnScaleChanged;
+        _properties.ScaleChanged += OnScaleChanged;
     }
 
     private void OnDisable()
     {
-        GetComponent<CharacterProperties>().ScaleChanged -= OnScaleChanged;
+        _properties.ScaleChanged -= OnScaleChanged;
     }
 
     private void Update()
