@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerAttack))]
+[RequireComponent(typeof(PlayerAttack), typeof(CharacterProperties))]
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _rotateSpeed;
 
     private PlayerAttack _playerAttack;
+    private CharacterProperties _properties;
 
     private float _mouseRotate;
     private float _currentSpeed;
@@ -21,21 +22,22 @@ public class PlayerMover : MonoBehaviour
     public event UnityAction<float, float> ChangedMoveDirection;
     public event UnityAction PlayerAttacked;
 
-    private void Start()
+    private void Awake()
     {
         _playerAttack = GetComponent<PlayerAttack>();
+        _properties = GetComponent<CharacterProperties>();
         _currentSpeed = _speed;
     }
 
     private void OnEnable()
     {
-        GetComponent<CharacterProperties>().ScaleChanged += OnScaleChanged;
+        _properties.ScaleChanged += OnScaleChanged;
     }
 
     private void OnDisable()
     {
         ChangedMoveDirection?.Invoke(0, 0);
-        GetComponent<CharacterProperties>().ScaleChanged -= OnScaleChanged;
+        _properties.ScaleChanged -= OnScaleChanged;
     }
 
     private void Update()

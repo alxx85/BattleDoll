@@ -30,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void AddNewEnemy()
     {
-        Vector3Int newEnemyPosition = EnemyPlacedPosition(_battlePalce.bounds.size);
+        Vector3Int newEnemyPosition = PlacedPosition(_battlePalce.bounds.size);
         CharacterProperties enemy = Instantiate(_enemyPrefabs[Random.Range(0, _enemyPrefabs.Count)],newEnemyPosition,Quaternion.identity, transform);
         enemy.Dying += OnDying;
         _spanedEnemys.Add(enemy);
@@ -47,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private Vector3Int EnemyPlacedPosition(Vector3 placeSize)
+    private Vector3Int PlacedPosition(Vector3 placeSize)
     {
         Vector3Int newPosition;
         bool positionClear;
