@@ -10,10 +10,10 @@ public class CharacterProperties : MonoBehaviour
 
     private float _health;
     private float _scale = 0;
-    private int _killingEnemy = 0;
+    private int _killedEnemysCount = 0;
     private Vector3 _startScale;
 
-    public int Killing => _killingEnemy;
+    public int KillCount => _killedEnemysCount;
 
     public event UnityAction<float, float> ChangedHealth;
     public event UnityAction<float> ScaleChanged;
@@ -48,7 +48,7 @@ public class CharacterProperties : MonoBehaviour
         _scale += addScale;
         ScaleChanged?.Invoke(_scale);
         transform.localScale = _startScale + new Vector3(_scale, _scale, _scale);
-        _killingEnemy++;
+        _killedEnemysCount++;
     }
 
     public void ResetProperties()

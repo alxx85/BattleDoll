@@ -52,14 +52,14 @@ public class Game : MonoBehaviour
     {
         BattleCount++;
         _player.ResetProperties();
-        _infoViewer.ShowEndBattleMenu(BattleCount, _player.Killing);
+        _infoViewer.ShowEndBattleMenu(BattleCount, _player.KillCount);
     }
 
     private void OnPlayerDying(CharacterProperties player)
     {
         _player.Dying -= OnPlayerDying;
         ChangeCameraParent(null);
-        _infoViewer.ShowEndGameMenu(BattleCount, _player.Killing);
+        _infoViewer.ShowEndGameMenu(BattleCount, _player.KillCount);
         _player = null;
     }
 

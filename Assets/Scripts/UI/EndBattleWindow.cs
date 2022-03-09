@@ -41,9 +41,9 @@ public class EndBattleWindow : Window
         SceneManager.LoadScene(0);
     }
 
-    public void ShowInfoText(int battleCount, int killingEnemy)
+    public void ShowInfoText(int battleCount, int killedEnemysCount)
     {
-        string showString = $"Current battle: {battleCount}\nEnemy killing: {killingEnemy}";
+        string showString = $"Current battle: {battleCount}\nEnemy killing: {killedEnemysCount}";
         _infoText.text = showString;
     }
 }

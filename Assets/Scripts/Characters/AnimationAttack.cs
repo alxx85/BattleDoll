@@ -30,9 +30,9 @@ public class AnimationAttack : MonoBehaviour
         if (_isAquireCharacter)
         {
             if (_player == null)
-                _enemy.AddingCrashEffect();
+                _enemy.AddCrashEffect();
             else
-                _player.AddingCrashEffect();
+                _player.AddCrashEffect();
         }
     }
 }

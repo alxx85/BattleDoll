@@ -5,59 +5,59 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterProperties))]
 public class Attack : MonoBehaviour
 {
-    [SerializeField] protected float _damage;
-    [SerializeField] protected float _attackRange;
-    [SerializeField] protected Transform _attackPoint;
-    [SerializeField] protected float _attackAnimationsLength;
-    [SerializeField] protected GameObject _attackParticte;
+    [SerializeField] protected float Damage;
+    [SerializeField] protected float AttackRange;
+    [SerializeField] protected Transform AttackPoint;
+    [SerializeField] protected float AttackAnimationsLength;
+    [SerializeField] protected GameObject AttackParticte;
 
-    protected float _scale;
-    protected float _currentDamage;
-    protected Coroutine _attack;
-    protected WaitForSeconds _delayAttack;
-    protected bool _isAttacking = false;
-    protected CharacterProperties _properties;
+    protected float Scale;
+    protected float CurrentDamage;
+    protected Coroutine AttackCoroutine;
+    protected WaitForSeconds DelayAttack;
+    protected CharacterProperties Properties;
 
-    public bool IsAttacking => _isAttacking;
+    public bool IsAttacking { get; protected set; }
 
     private void Awake()
     {
-        _properties = GetComponent<CharacterProperties>();
+        Properties = GetComponent<CharacterProperties>();
+        IsAttacking = false;
     }
 
     protected virtual void OnEnable()
     {
-        _properties.ScaleChanged += OnScaleChanged;
+        Properties.ScaleChanged += OnScaleChanged;
     }
 
     protected virtual void OnDisable()
     {
-        _properties.ScaleChanged -= OnScaleChanged;
+        Properties.ScaleChanged -= OnScaleChanged;
     }
 
     protected virtual void Start()
     {
-        _delayAttack = new WaitForSeconds(_attackAnimationsLength);
-        _currentDamage = _damage;
+        DelayAttack = new WaitForSeconds(AttackAnimationsLength);
+        CurrentDamage = Damage;
     }
 
-    public void AddingCrashEffect()
+    public void AddCrashEffect()
     {
-        Instantiate(_attackParticte, _attackPoint.position, Quaternion.identity);
+        Instantiate(AttackParticte, AttackPoint.position, Quaternion.identity);
     }
 
     protected void OnScaleChanged(float newScale)
     {
-        _scale = newScale;
-        _currentDamage = _damage + _damage * _scale;
+        Scale = newScale;
+        CurrentDamage = Damage + Damage * Scale;
     }
 
     protected IEnumerator DealAreaDamage()
     {
-        CharacterProperties selfTarget = GetComponent<CharacterProperties>();
-        yield return _delayAttack;
+        CharacterProperties selfTarget = Properties;
+        yield return DelayAttack;
 
-        Collider[] targets = Physics.OverlapSphere(_attackPoint.position, _attackRange + _scale);
+        Collider[] targets = Physics.OverlapSphere(AttackPoint.position, AttackRange + Scale);
 
         for (int i = 0; i < targets.Length; i++)
         {
@@ -65,11 +65,11 @@ public class Attack : MonoBehaviour
             {
                 if (enemy != selfTarget)
                 {
-                    enemy.TakeDamage(GetComponent<CharacterProperties>(), _currentDamage);
+                    enemy.TakeDamage(GetComponent<CharacterProperties>(), CurrentDamage);
                 }
             }
         }
-        _isAttacking = false;
+        IsAttacking = false;
     }
 
 }

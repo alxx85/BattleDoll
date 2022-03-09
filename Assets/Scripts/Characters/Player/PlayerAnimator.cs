@@ -22,13 +22,13 @@ public class PlayerAnimator : MonoBehaviour
     private void OnEnable()
     {
         _playerMover.ChangedMoveDirection += OnChangedMoveDirection;
-        _playerMover.PlayerAttacked += OnPlayerAttacked;
+        _playerMover.MakeDamage += OnPlayerAttacked;
     }
 
     private void OnDisable()
     {
         _playerMover.ChangedMoveDirection -= OnChangedMoveDirection;
-        _playerMover.PlayerAttacked -= OnPlayerAttacked;
+        _playerMover.MakeDamage -= OnPlayerAttacked;
     }
 
     private void OnPlayerAttacked()

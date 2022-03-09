@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public abstract class Window : MonoBehaviour
 {
-    [SerializeField] protected Button _exitButton;
+    [SerializeField] protected Button ExitButton;
 
     protected PlayerMover _player;
 
     protected virtual void OnEnable()
     {
-        _exitButton.onClick.AddListener(OnExitButtonClick);
+        ExitButton.onClick.AddListener(OnExitButtonClick);
     }
 
     protected virtual void OnDisable()
     {
-        _exitButton.onClick.RemoveListener(OnExitButtonClick);
+        ExitButton.onClick.RemoveListener(OnExitButtonClick);
     }
 
     protected abstract void OnExitButtonClick();

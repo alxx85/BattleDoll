@@ -906,11 +906,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 754d139667dfbd94598b5d19bc9c8c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 3
-  _attackRange: 1
-  _attackPoint: {fileID: 8104096401939065458}
-  _attackAnimationsLength: 1.5
-  _attackParticte: {fileID: 6034691344357326982, guid: df35626b026ea2b449e6b181c4eaf71f, type: 3}
+  Damage: 3
+  AttackRange: 1
+  AttackPoint: {fileID: 8104096401939065458}
+  AttackAnimationsLength: 1.5
+  AttackParticte: {fileID: 6034691344357326982, guid: df35626b026ea2b449e6b181c4eaf71f, type: 3}
   _searchDistance: 10
 --- !u!114 &5542907540571341138
 MonoBehaviour:

@@ -23,13 +23,13 @@ public class EnemyAnimator : MonoBehaviour
     private void OnEnable()
     {
         _enemyMover.ChangedMoveDirection += OnChangedMoveDirection;
-        _enemyAttack.EnemyAttacked += OnEnemyAttacked;
+        _enemyAttack.MakeDamage += OnEnemyAttacked;
     }
 
     private void OnDisable()
     {
         _enemyMover.ChangedMoveDirection -= OnChangedMoveDirection;
-        _enemyAttack.EnemyAttacked -= OnEnemyAttacked;
+        _enemyAttack.MakeDamage -= OnEnemyAttacked;
     }
 
     private void OnEnemyAttacked()

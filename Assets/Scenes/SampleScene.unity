@@ -9591,6 +9591,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 630452210}
   m_CullTransparentMesh: 1
+--- !u!4 &637252026 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4790683507548146423, guid: ed7fc3ab2310d8647a56b9edbe4aa3f7, type: 3}
+  m_PrefabInstance: {fileID: 4790683508292408337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &658260294
 GameObject:
   m_ObjectHideFlags: 0
@@ -11531,7 +11536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e089d714533b24a9c25b5afd844309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exitButton: {fileID: 1663389964}
+  ExitButton: {fileID: 1663389964}
   _nextButton: {fileID: 1277254359}
   _infoText: {fileID: 1373754166}
 --- !u!82 &894477313
@@ -11952,7 +11957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359fa44ca83151c41b22f423b605d957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exitButton: {fileID: 1921278800}
+  ExitButton: {fileID: 1921278800}
   _replayButton: {fileID: 966322611}
   _infoText: {fileID: 2043288996}
 --- !u!82 &912500406
@@ -14766,7 +14771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2622250e17f22324ab3e2ea661789b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exitButton: {fileID: 501199773}
+  ExitButton: {fileID: 501199773}
   _sensitivitySlider: {fileID: 1473457673}
   _musicSlider: {fileID: 865816267}
   _effectSlider: {fileID: 1124384906}
@@ -15606,7 +15611,6 @@ MonoBehaviour:
   _player: {fileID: 269149334}
   _spawner: {fileID: 658567171}
   _infoViewer: {fileID: 968455660}
-  _camera: {fileID: 0}
 --- !u!4 &1347875239
 Transform:
   m_ObjectHideFlags: 0
@@ -18069,7 +18073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654a7a0fe1056a44682d69916f8d7de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exitButton: {fileID: 1553387668}
+  ExitButton: {fileID: 1553387668}
   _startButton: {fileID: 964219086}
   _settingsButton: {fileID: 1893047453}
   _infoText: {fileID: 1374324890}
@@ -22431,6 +22435,26 @@ PrefabInstance:
     - target: {fileID: 4790683508421764980, guid: ed7fc3ab2310d8647a56b9edbe4aa3f7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790683508421764984, guid: ed7fc3ab2310d8647a56b9edbe4aa3f7, type: 3}
+      propertyPath: Damage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790683508421764984, guid: ed7fc3ab2310d8647a56b9edbe4aa3f7, type: 3}
+      propertyPath: AttackPoint
+      value: 
+      objectReference: {fileID: 637252026}
+    - target: {fileID: 4790683508421764984, guid: ed7fc3ab2310d8647a56b9edbe4aa3f7, type: 3}
+      propertyPath: AttackRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790683508421764984, guid: ed7fc3ab2310d8647a56b9edbe4aa3f7, type: 3}
+      propertyPath: AttackParticte
+      value: 
+      objectReference: {fileID: 6034691344357326982, guid: df35626b026ea2b449e6b181c4eaf71f, type: 3}
+    - target: {fileID: 4790683508421764984, guid: ed7fc3ab2310d8647a56b9edbe4aa3f7, type: 3}
+      propertyPath: AttackAnimationsLength
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5083458135593516697, guid: ed7fc3ab2310d8647a56b9edbe4aa3f7, type: 3}
       propertyPath: m_LocalPosition.x

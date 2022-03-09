@@ -26,11 +26,11 @@ public class EndGameWindow : Window
         _replayButton.onClick.RemoveListener(OnNextButtonClick);
     }
 
-    public void ShowInfoText(int battleCount, int killingEnemy)
+    public void ShowInfoText(int battleCount, int killedEnemysCount)
     {
-        string showString = $"Current battle: {battleCount}\nEnemy killing: {killingEnemy}";
+        string showString = $"Current battle: {battleCount}\nEnemy killing: {killedEnemysCount}";
         _infoText.text = showString;
-        ChangeLeadre(battleCount, killingEnemy);
+        ChangeLeadre(battleCount, killedEnemysCount);
     }
 
     protected override void OnExitButtonClick()

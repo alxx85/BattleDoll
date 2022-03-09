@@ -16,9 +16,9 @@ public class EnemyTargetAttack : Attack
     private const float MinSearchDistance = 1f;
 
     public CharacterProperties Target => _target;
-    public float AttackDistance => _attackPoint.localPosition.z;
+    public float AttackDistance => AttackPoint.localPosition.z;
 
-    public event UnityAction EnemyAttacked;
+    public event UnityAction MakeDamage;
 
     protected override void Start()
     {
@@ -33,18 +33,18 @@ public class EnemyTargetAttack : Attack
             _target = AcquireTarget();
         else
         {
-            if (Vector3.Distance(transform.position, _target.transform.position) <= _attackPoint.localPosition.z + _scale)
+            if (Vector3.Distance(transform.position, _target.transform.position) <= AttackPoint.localPosition.z + Scale)
             {
-                if (_waitAttackin == null && _attack == null)
+                if (_waitAttackin == null && AttackCoroutine == null)
                 {
-                    _isAttacking = true;
+                    IsAttacking = true;
                     _waitAttackin = StartCoroutine(BeforeAttackWait());
                 }
-                else if (_isAttacking == false)
+                else if (IsAttacking == false)
                 {
-                    StopCoroutine(_attack);
+                    StopCoroutine(AttackCoroutine);
                     _waitAttackin = null;
-                    _attack = null;
+                    AttackCoroutine = null;
                 }
             }
         }
@@ -54,10 +54,10 @@ public class EnemyTargetAttack : Attack
     {
         yield return _beforeAttackingDelay;
 
-        if (_attack == null)
+        if (AttackCoroutine == null)
         {
-            _attack = StartCoroutine(DealAreaDamage());
-            EnemyAttacked?.Invoke();
+            AttackCoroutine = StartCoroutine(DealAreaDamage());
+            MakeDamage?.Invoke();
         }
         StopCoroutine(_waitAttackin);
     }
@@ -69,7 +69,7 @@ public class EnemyTargetAttack : Attack
 
         do
         {
-            Collider[] targets = Physics.OverlapSphere(transform.position, currentSearchDistance + _scale);
+            Collider[] targets = Physics.OverlapSphere(transform.position, currentSearchDistance + Scale);
 
             for (int i = 0; i < targets.Length; i++)
             {
@@ -78,7 +78,7 @@ public class EnemyTargetAttack : Attack
                         return enemy;
             }
             currentSearchDistance++;
-            Mathf.Clamp(currentSearchDistance, MinSearchDistance, _searchDistance);
+            currentSearchDistance = Mathf.Clamp(currentSearchDistance, MinSearchDistance, _searchDistance);
 
         } while (currentSearchDistance < _searchDistance);
         return null;
@@ -87,6 +87,6 @@ public class EnemyTargetAttack : Attack
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
+        Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
 }

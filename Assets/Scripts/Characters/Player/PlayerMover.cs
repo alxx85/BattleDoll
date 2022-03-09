@@ -20,7 +20,7 @@ public class PlayerMover : MonoBehaviour
     public float RotateSpeed => _rotateSpeed;
 
     public event UnityAction<float, float> ChangedMoveDirection;
-    public event UnityAction PlayerAttacked;
+    public event UnityAction MakeDamage;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class PlayerMover : MonoBehaviour
     {
         if (_playerAttack.IsAttacking == false)
         {
-            PlayerInputs();
+            AcquireInputs();
 
             transform.Rotate(0, _mouseRotate, 0);
             transform.Translate(_moveDirection);
@@ -56,7 +56,7 @@ public class PlayerMover : MonoBehaviour
         _rotateSpeed = value;
     }
 
-    private void PlayerInputs()
+    private void AcquireInputs()
     {
         _moveDirection = Vector3.zero;
         _moveDirection += Vector3.right * Input.GetAxis("Horizontal");
@@ -72,7 +72,7 @@ public class PlayerMover : MonoBehaviour
         _mouseRotate = Input.GetAxis("Mouse X") * _rotateSpeed;
 
         if (Input.GetMouseButtonDown(0))
-            PlayerAttacked?.Invoke();
+            MakeDamage?.Invoke();
     }
 
     private void OnScaleChanged(float newScale)

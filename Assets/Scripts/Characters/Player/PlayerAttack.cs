@@ -12,30 +12,30 @@ public class PlayerAttack : Attack
     {
         base.OnEnable();
         _mover = GetComponent<PlayerMover>();
-        _mover.PlayerAttacked += AttackEnemys;
+        _mover.MakeDamage += AttackEnemys;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        _mover.PlayerAttacked -= AttackEnemys;
+        _mover.MakeDamage -= AttackEnemys;
     }
 
     private void Update()
     {
-        if (_isAttacking == false && _attack != null)
+        if (IsAttacking == false && AttackCoroutine != null)
         {
-            StopCoroutine(_attack);
-            _attack = null;
+            StopCoroutine(AttackCoroutine);
+            AttackCoroutine = null;
         }
     }
 
     public void AttackEnemys()
     {
-        if (_attack == null)
+        if (AttackCoroutine == null)
         {
-            _attack = StartCoroutine(DealAreaDamage());
-            _isAttacking = true;
+            AttackCoroutine = StartCoroutine(DealAreaDamage());
+            IsAttacking = true;
         }
     }
 }
