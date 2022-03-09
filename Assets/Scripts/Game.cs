@@ -16,10 +16,12 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else if (Instance == this)
+        if (Game.Instance != null)
+        {
             Destroy(gameObject);
+            return;
+        }
+        Game.Instance = this;
 
         _camera = Camera.main;
         ChangeCameraParent(_player.transform);
