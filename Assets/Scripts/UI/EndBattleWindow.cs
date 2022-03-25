@@ -14,7 +14,7 @@ public class EndBattleWindow : Window
     {
         base.OnEnable();
         _nextButton.onClick.AddListener(OnNextButtonClick);
-
+        ShowCursor();
     }
 
     protected override void OnDisable()
@@ -34,6 +34,7 @@ public class EndBattleWindow : Window
         Game.Instance.StartBattle();
         gameObject.SetActive(false);
         _player.enabled = true;
+        HideCursor();
     }
 
     protected override void OnExitButtonClick()

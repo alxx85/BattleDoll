@@ -44,6 +44,7 @@ public class StartWindow : Window
         Game.Instance.StartBattle();
         GetComponentInParent<ScreenInfoViewer>().PlayingBattleSong();
         CloseWindow();
+        HideCursor();
     }
 
     private void OnSettingsButtonClick()

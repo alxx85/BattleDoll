@@ -17,7 +17,7 @@ public class EndGameWindow : Window
     {
         base.OnEnable();
         _replayButton.onClick.AddListener(OnNextButtonClick);
-
+        ShowCursor();
     }
 
     protected override void OnDisable()

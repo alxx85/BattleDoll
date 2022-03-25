@@ -20,4 +20,16 @@ public abstract class Window : MonoBehaviour
     }
 
     protected abstract void OnExitButtonClick();
+
+    protected void ShowCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    protected void HideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 }
